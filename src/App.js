@@ -11,7 +11,7 @@ function App() {
   const [showPagination, setShowPagination] = useState(false);
 
   const searchResults = restaurants.filter((restaurant) => {
-    return restaurant.name.toLowerCase().includes(query);
+    return restaurant.name.toLowerCase().includes(query.toLowerCase());
   });
 
   const sortedRestaurants = sortBy(searchResults, [sort]);
