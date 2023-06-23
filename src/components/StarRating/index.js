@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./star-rating.css";
 
 const Star = ({ marked, starId }) => {
@@ -10,29 +9,13 @@ const Star = ({ marked, starId }) => {
 };
 
 export const StarRating = ({ value }) => {
-  const [rating, setRating] = useState(parseInt(value) || 0);
-  const [selection, setSelection] = useState(0);
-
-  const hoverOver = (event) => {
-    let val = 0;
-    if (event && event.target && event.target.getAttribute("data-star-id"))
-      val = event.target.getAttribute("data-star-id");
-    setSelection(val);
-  };
   return (
-    <div
-      onMouseOut={() => hoverOver(null)}
-      onClick={(e) =>
-        setRating(e.target.getAttribute("data-star-id") || rating)
-      }
-      onMouseOver={hoverOver}
-      className="star-rating"
-    >
+    <div className="star-rating">
       {Array.from({ length: 5 }, (v, i) => (
         <Star
           starId={i + 1}
           key={`star_${i + 1}`}
-          marked={selection ? selection >= i + 1 : rating >= i + 1}
+          marked={value ? value >= i + 1 : value >= i + 1}
         />
       ))}
     </div>

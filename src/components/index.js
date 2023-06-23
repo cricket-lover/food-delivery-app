@@ -4,5 +4,6 @@ import { InputBox } from "./InputBox/index.js";
 import { Sort } from "./Sort/index.js";
 import { Pagination } from "./Pagination/index.js";
 import { NoCardsFound } from "./NoCardsFound/index.js";
+import { Toggle } from "./Toggle/index.js";
 
-export { Card, Cards, InputBox, Sort, Pagination, NoCardsFound };
+export { Card, Cards, InputBox, Sort, Pagination, NoCardsFound, Toggle };

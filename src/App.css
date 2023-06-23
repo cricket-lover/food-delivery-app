@@ -5,6 +5,12 @@ picture {
   width: 100%;
 }
 
+button,
+option,
+select {
+  cursor: pointer;
+}
+
 .app {
   display: flex;
   flex-direction: column;
