@@ -5,6 +5,10 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/ping", (req, res) => {
+  res.json({ msg: "Pong" });
+});
+
 app.get("/getAllRestaurants", (req, res) => {
   res.status(200).json(restaurants);
 });
