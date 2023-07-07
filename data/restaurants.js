@@ -1,4 +1,5 @@
-import { v4 as generateRandomId } from "uuid";
+// import { v4 as generateRandomId } from "uuid";
+const { v4: generateRandomId } = require("uuid");
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -221,4 +222,6 @@ const defaultRestaurants = [
   },
 ];
 
-export const restaurants = shuffle(defaultRestaurants);
+const restaurants = shuffle(defaultRestaurants);
+
+module.exports = { restaurants };

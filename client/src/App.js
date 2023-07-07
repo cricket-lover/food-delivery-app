@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import sortBy from "lodash/sortBy";
-import { restaurants } from "./data/restaurants";
 import { InputBox, Sort, Pagination, Cards, Toggle } from "./components";
 import "./App.css";
 
 function App() {
+  const [restaurants, setRestaurants] = useState([]);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("relevance");
   const [pageNumber, setPageNumber] = useState(1);
   const [showPagination, setShowPagination] = useState(false);
+
+  useEffect(() => {
+    fetch("/getAllRestaurants")
+      .then((res) => res.json())
+      .then((data) => {
+        setRestaurants(data);
+      })
+      .catch((err) => console.warn(err.message));
+  }, []);
 
   const searchResults = restaurants.filter((restaurant) => {
     return restaurant.name.toLowerCase().includes(query.toLowerCase());

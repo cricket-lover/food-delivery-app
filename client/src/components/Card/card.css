@@ -1,6 +1,6 @@
 .card {
-  border-radius: 5px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 48px 0px;
   padding: 1rem;
 }
 
@@ -9,6 +9,7 @@
 }
 
 .restaurant-image {
+  border-radius: 10px;
   width: 16rem;
   aspect-ratio: 16 / 9;
 }
