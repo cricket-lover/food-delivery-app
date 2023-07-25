@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import sortBy from "lodash/sortBy";
-import { InputBox, Sort, Pagination, Cards, Toggle } from "./components";
+import { Sort, Pagination, Cards, Toggle, Header } from "./components";
 import "./App.css";
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
   const [sort, setSort] = useState("relevance");
   const [pageNumber, setPageNumber] = useState(1);
   const [showPagination, setShowPagination] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     fetch("/getAllRestaurants")
@@ -40,13 +41,17 @@ function App() {
 
   return (
     <div className="app">
+      <Header
+        brandName={"FoodKaro"}
+        count={cartItems.length}
+        setQuery={setQuery}
+      />
       <Toggle
         showPagination={showPagination}
         onPaginationToggle={setShowPagination}
       />
-      <InputBox onQueryChange={setQuery} />
       <Sort onSortChange={setSort} />
-      <Cards restaurants={restaurantsToShow} />
+      <Cards restaurants={restaurantsToShow} addToCart={setCartItems} />
       {showPagination && (
         <Pagination
           totalItemsCount={sortedRestaurants.length}

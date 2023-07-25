@@ -14,14 +14,14 @@ export const Pagination = ({
     <div className="pagination-cards">
       <div className="pagination-buttons-container">
         <button
-          className="pagination-button"
+          className="btn outline"
           onClick={() => onPageChange(1)}
           disabled={pageNumber === 1}
         >
           {"<<"}
         </button>
         <button
-          className="pagination-button"
+          className="btn outline"
           onClick={() => onPageChange((pageNumber) => pageNumber - 1)}
           disabled={pageNumber === 1}
         >
@@ -30,9 +30,7 @@ export const Pagination = ({
         {pageNumberButtons.map((n, i) => {
           return (
             <button
-              className={`pagination-button ${
-                pageNumber === i + 1 && "active"
-              }`}
+              className={`btn ${pageNumber === i + 1 ? "filled" : "outline"}`}
               key={i}
               onClick={() => onPageChange(i + 1)}
             >
@@ -41,14 +39,14 @@ export const Pagination = ({
           );
         })}
         <button
-          className="pagination-button"
+          className="btn outline"
           onClick={() => onPageChange((pageNumber) => pageNumber + 1)}
           disabled={numberOfPages === pageNumber}
         >
           {">"}
         </button>
         <button
-          className="pagination-button"
+          className="btn outline"
           onClick={() => onPageChange(numberOfPages)}
           disabled={pageNumber === numberOfPages}
         >

@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react";
 
 import "./card.css";
 
-export const Card = ({ image, name, rating }) => {
+export const Card = ({ image, name, rating, addToCart }) => {
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   const ref = useRef(null);
@@ -30,6 +31,15 @@ export const Card = ({ image, name, rating }) => {
       <img src={image} alt={name} className="restaurant-image" />
       <h3 className="restaurant-name">{name}</h3>
       <StarRating value={rating} />
+      <button
+        className={`btn filled`}
+        onClick={() => {
+          addToCart((items) => [...items, { image, name, rating }]);
+          setIsAddedToCart(true);
+        }}
+      >
+        {isAddedToCart ? "Remove to cart" : "Add to cart"}
+      </button>
     </div>
   );
 };

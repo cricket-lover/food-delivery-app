@@ -1,19 +1,28 @@
 .search-container {
   display: flex;
   gap: 1rem;
-  justify-content: center;
-  min-width: 98%;
+  align-items: center;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 0 8px;
+  height: 2rem;
+  box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px;
 }
 
 .search-input {
   outline: none;
-  height: 2rem;
-  font-size: 1.2rem;
+  border: none;
+  font-size: 1rem;
   width: 100%;
+}
+
+.search-icon {
+  height: 1rem;
 }
 
 @media screen and (min-width: 600px) {
   .search-input {
-    width: 32rem;
+    width: 30vw;
+    max-width: 32rem;
   }
 }

@@ -9,14 +9,3 @@
   margin-top: 2rem;
   gap: 10px;
 }
-
-.pagination-button {
-  width: 2rem;
-  height: 2rem;
-}
-
-.active {
-  background-color: lightsalmon;
-  color: white;
-  border: none;
-}
