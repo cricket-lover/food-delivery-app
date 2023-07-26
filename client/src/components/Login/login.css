@@ -1,0 +1,21 @@
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  gap: 1rem;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  height: 2rem;
+  line-height: 2rem;
+}
+
+.label > input {
+  width: 14rem;
+}
+
+.login-btn {
+  height: 2rem;
+}

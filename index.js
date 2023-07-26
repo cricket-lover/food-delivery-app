@@ -28,12 +28,8 @@ app.get("/getAllRestaurants", (req, res) => {
   res.status(200).json(restaurants);
 });
 
-app.post("/authenticate", (req, res) => {
-  const { name, email, password } = req.body;
-  console.log(name, email, password);
-  res.json(
-    `Hey ${name}! Your Password is: ${password} and email id is : ${email}`
-  );
+app.all("/*", (req, res) => {
+  res.json({ error: "Page Not Found" });
 });
 
 app.listen(PORT, () => console.log("Listening on Port", PORT));
