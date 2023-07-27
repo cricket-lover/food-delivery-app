@@ -83,3 +83,9 @@ h6 {
   background-color: lightgray;
   color: black;
 }
+
+.cart-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

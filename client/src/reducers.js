@@ -13,7 +13,15 @@ export const queryReducer = (query, action) => {
 export const cartReducer = (cartItems, action) => {
   switch (action.type) {
     case "add_to_cart": {
-      return [...cartItems, action.item];
+      const index = cartItems.findIndex(({ item }) => {
+        return item.id === action.item.id;
+      });
+      if (index >= 0) {
+        cartItems[index].quantity++;
+      } else {
+        cartItems = cartItems.concat({ item: action.item, quantity: 0 });
+      }
+      return cartItems;
     }
 
     default: {

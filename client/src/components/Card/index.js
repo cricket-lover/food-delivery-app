@@ -4,7 +4,7 @@ import { StarRating } from "../StarRating";
 import { RestaurantsDispatchContext } from "../../RestaurantsContext";
 import "./card.css";
 
-export const Card = ({ image, name, rating }) => {
+export const Card = ({ image, name, rating, id }) => {
   const { cartDispatch } = useContext(RestaurantsDispatchContext);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +29,7 @@ export const Card = ({ image, name, rating }) => {
   const handleOnClick = () => {
     cartDispatch({
       type: "add_to_cart",
-      item: { image, name, rating },
+      item: { image, name, rating, id },
     });
   };
 
