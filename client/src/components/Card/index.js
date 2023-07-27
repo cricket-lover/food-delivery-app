@@ -1,11 +1,12 @@
+import { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { StarRating } from "../StarRating";
-
-import { useEffect, useRef, useState } from "react";
-
+import { RestaurantsDispatchContext } from "../../RestaurantsContext";
 import "./card.css";
 
-export const Card = ({ image, name, rating, addToCart }) => {
+export const Card = ({ image, name, rating }) => {
+  const { cartDispatch } = useContext(RestaurantsDispatchContext);
+
   const [isVisible, setIsVisible] = useState(false);
 
   const ref = useRef(null);
@@ -25,17 +26,19 @@ export const Card = ({ image, name, rating, addToCart }) => {
     observer.observe(ref.current);
   }, []);
 
+  const handleOnClick = () => {
+    cartDispatch({
+      type: "add_to_cart",
+      item: { image, name, rating },
+    });
+  };
+
   return (
     <div ref={ref} className={`card ${isVisible ? "" : "hidden"}`}>
       <img src={image} alt={name} className="restaurant-image" />
       <h3 className="restaurant-name">{name}</h3>
       <StarRating value={rating} />
-      <button
-        className={`btn filled`}
-        onClick={() => {
-          addToCart((items) => [...items, { image, name, rating }]);
-        }}
-      >
+      <button className={`btn filled`} onClick={handleOnClick}>
         Add to cart
       </button>
     </div>

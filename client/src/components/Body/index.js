@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { RestaurantsContext } from "../../RestaurantsContext";
 
-export const Body = ({ setCartItems }) => {
+export const Body = () => {
   const { query } = useContext(RestaurantsContext);
 
   const [restaurants, setRestaurants] = useState([]);
@@ -48,7 +48,7 @@ export const Body = ({ setCartItems }) => {
         onPaginationToggle={setShowPagination}
       />
       <Sort onSortChange={setSort} />
-      <Cards restaurants={restaurantsToShow} addToCart={setCartItems} />
+      <Cards restaurants={restaurantsToShow} />
       {showPagination && (
         <Pagination
           totalItemsCount={sortedRestaurants.length}

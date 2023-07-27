@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useReducer } from "react";
+import { Outlet } from "react-router-dom";
+import {
+  RestaurantsContext,
+  RestaurantsDispatchContext,
+} from "./RestaurantsContext";
+import { cartReducer, queryReducer } from "./reducers";
 import { Header } from "./components";
 import "./App.css";
-import { Body } from "./components/Body";
-import { RestaurantsContext } from "./RestaurantsContext";
 
 function App() {
-  const [query, setQuery] = useState("");
-  const [cartItems, setCartItems] = useState([]);
+  const [query, queryDispatch] = useReducer(queryReducer, "");
+  const [cartItems, cartDispatch] = useReducer(cartReducer, []);
 
   return (
     <RestaurantsContext.Provider value={{ query, cartItems }}>
-      <div className="app">
-        <Header brandName={"FoodKaro"} setQuery={setQuery} />
-        <Body setCartItems={setCartItems} />
-      </div>
+      <RestaurantsDispatchContext.Provider
+        value={{ queryDispatch, cartDispatch }}
+      >
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </RestaurantsDispatchContext.Provider>
     </RestaurantsContext.Provider>
   );
 }

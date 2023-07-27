@@ -5,15 +5,15 @@ import { InputBox } from "../InputBox";
 import { useContext } from "react";
 import { RestaurantsContext } from "../../RestaurantsContext";
 
-export const Header = ({ brandName, setQuery }) => {
+export const Header = () => {
   const { cartItems } = useContext(RestaurantsContext);
 
   return (
     <header className="header">
       <h1 className="brand-name">
-        <Link to={"/"}>{brandName}</Link>
+        <Link to={"/"}>FoodKaro</Link>
       </h1>
-      <InputBox onQueryChange={setQuery} />
+      <InputBox />
       <CartIcon count={cartItems.length} />
     </header>
   );

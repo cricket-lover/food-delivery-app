@@ -7,16 +7,23 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Cart } from "./routes/cart";
 import ErrorPage from "./components/ErrorPage";
+import { Body } from "./components/Body";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
+    children: [
+      {
+        index: true,
+        element: <Body />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+    ],
   },
 ]);
 

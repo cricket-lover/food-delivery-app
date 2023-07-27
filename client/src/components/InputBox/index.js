@@ -1,8 +1,19 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "lodash";
+import { RestaurantsDispatchContext } from "../../RestaurantsContext";
 import "./input-box.css";
 
-export const InputBox = ({ onQueryChange }) => {
+export const InputBox = () => {
+  const { queryDispatch } = useContext(RestaurantsDispatchContext);
+
+  const onQueryChange = (query) => {
+    queryDispatch({
+      type: "searched",
+      query: query,
+    });
+  };
+
   const debounced = debounce(onQueryChange, 200, {});
   return (
     <div className="search-container">
