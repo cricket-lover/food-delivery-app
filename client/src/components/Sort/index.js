@@ -9,9 +9,10 @@ export const Sort = ({ onSortChange }) => {
         className="btn outline"
         onChange={(e) => onSortChange(e.target.value)}
       >
-        <option value="relevance">Relevance</option>
+        <option value="deliveryTime">Delivery Time</option>
         <option value="name">Name</option>
-        <option value="rating">Rating</option>
+        <option value="avgRating">Rating</option>
+        <option value="costForTwo">Cost</option>
       </select>
     </div>
   );

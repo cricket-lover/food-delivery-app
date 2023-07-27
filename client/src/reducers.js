@@ -1,7 +1,7 @@
 export const queryReducer = (query, action) => {
   switch (action.type) {
     case "searched": {
-      return query;
+      return action.query;
     }
 
     default: {
@@ -17,11 +17,13 @@ export const cartReducer = (cartItems, action) => {
         return item.id === action.item.id;
       });
       if (index >= 0) {
-        cartItems[index].quantity++;
-      } else {
-        cartItems = cartItems.concat({ item: action.item, quantity: 0 });
+        return [
+          ...cartItems.slice(0, index),
+          { item: action.item, quantity: cartItems[index].quantity + 1 },
+          ...cartItems.slice(index + 1),
+        ];
       }
-      return cartItems;
+      return [...cartItems, { item: action.item, quantity: 1 }];
     }
 
     default: {

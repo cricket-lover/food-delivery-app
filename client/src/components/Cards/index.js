@@ -11,7 +11,7 @@ export const Cards = ({ restaurants, addToCart }) => {
   return (
     <div className="cards">
       {restaurants.map((restaurant) => (
-        <Card key={restaurant.id} {...restaurant} addToCart={addToCart} />
+        <Card key={restaurant.data.id} {...restaurant} addToCart={addToCart} />
       ))}
     </div>
   );

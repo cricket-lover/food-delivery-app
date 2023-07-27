@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import "./cart-icon.css";
+import { useContext } from "react";
+import { RestaurantsContext } from "../../RestaurantsContext";
 
-export const CartIcon = ({ count }) => {
+export const CartIcon = () => {
+  const { cartItems } = useContext(RestaurantsContext);
+
   return (
     <Link to={"/cart"}>
       <div className="cart">
-        <span className="cart-items-count">{count ? count : ""}</span>
+        <span className="cart-items-count">
+          {cartItems.length ? cartItems.length : ""}
+        </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 576 512"

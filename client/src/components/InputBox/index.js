@@ -8,6 +8,7 @@ export const InputBox = () => {
   const { queryDispatch } = useContext(RestaurantsDispatchContext);
 
   const onQueryChange = (query) => {
+    console.log("query --->", query);
     queryDispatch({
       type: "searched",
       query: query,

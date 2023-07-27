@@ -1,7 +1,6 @@
+import { useEffect, useState, useContext } from "react";
 import { sortBy } from "lodash";
 import { Sort, Cards, Pagination, Toggle } from "../../components";
-import { useEffect, useState } from "react";
-import { useContext } from "react";
 import { RestaurantsContext } from "../../RestaurantsContext";
 
 export const Body = () => {
@@ -23,11 +22,14 @@ export const Body = () => {
   const [showPagination, setShowPagination] = useState(false);
 
   const searchResults = restaurants.filter((restaurant) => {
-    return restaurant.name.toLowerCase().includes(query.toLowerCase());
+    return restaurant.data.name.toLowerCase().includes(query.toLowerCase());
   });
 
-  const sortedRestaurants = sortBy(searchResults, [sort]);
-
+  const sortedRestaurants = sortBy(searchResults, [
+    function (o) {
+      return o.data[sort];
+    },
+  ]);
   const itemsPerPage = 10;
   const startIndex = itemsPerPage * (pageNumber - 1);
   const endIndex = startIndex + itemsPerPage - 1;

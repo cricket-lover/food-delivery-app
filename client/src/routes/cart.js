@@ -5,7 +5,6 @@ import { StarRating } from "../components/StarRating";
 export const Cart = () => {
   const { cartItems } = useContext(RestaurantsContext);
 
-  console.log(cartItems);
   if (cartItems.length === 0) {
     return <div className="cart-page-container">Cart Empty</div>;
   }
@@ -16,7 +15,7 @@ export const Cart = () => {
         return (
           <div key={item.id}>
             {item.name}: {quantity}
-            <StarRating value={item.rating} />
+            <StarRating value={item.avgRating} />
           </div>
         );
       })}
