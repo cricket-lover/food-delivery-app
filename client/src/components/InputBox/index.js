@@ -5,11 +5,10 @@ import { RestaurantsDispatchContext } from "../../RestaurantsContext";
 import "./input-box.css";
 
 export const InputBox = () => {
-  const { queryDispatch } = useContext(RestaurantsDispatchContext);
+  const { displayOptionsDispatch } = useContext(RestaurantsDispatchContext);
 
   const onQueryChange = (query) => {
-    console.log("query --->", query);
-    queryDispatch({
+    displayOptionsDispatch({
       type: "searched",
       query: query,
     });

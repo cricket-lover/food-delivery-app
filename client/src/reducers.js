@@ -1,7 +1,39 @@
-export const queryReducer = (query, action) => {
+export const queryReducer = (displayOptions, action) => {
   switch (action.type) {
     case "searched": {
-      return action.query;
+      return { ...displayOptions, query: action.query };
+    }
+    case "sort": {
+      return { ...displayOptions, sortOption: action.sortOption };
+    }
+    case "toggle_pagination": {
+      return {
+        ...displayOptions,
+        showPagination: !displayOptions.showPagination,
+      };
+    }
+    default: {
+      throw Error("Unknown action: " + action.type);
+    }
+  }
+};
+
+export const paginationReducer = (pageNumber, action) => {
+  switch (action.type) {
+    case "first_page": {
+      return 1;
+    }
+    case "last_page": {
+      return action.pageNumber;
+    }
+    case "prev_page": {
+      return pageNumber - 1;
+    }
+    case "next_page": {
+      return pageNumber + 1;
+    }
+    case "click_page_number": {
+      return action.pageNumber;
     }
 
     default: {
@@ -24,6 +56,18 @@ export const cartReducer = (cartItems, action) => {
         ];
       }
       return [...cartItems, { item: action.item, quantity: 1 }];
+    }
+
+    default: {
+      throw Error("Unknown action: " + action.type);
+    }
+  }
+};
+
+export const restaurantsReducer = (restaurants, action) => {
+  switch (action.type) {
+    case "load": {
+      return action.restaurants;
     }
 
     default: {

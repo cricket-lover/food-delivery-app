@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import "./pagination.css";
+import { useContext } from "react";
+import { RestaurantsDispatchContext } from "../../RestaurantsContext";
 
-export const Pagination = ({
-  totalItemsCount,
-  pageNumber,
-  onPageChange,
-  itemsPerPage,
-}) => {
+export const Pagination = ({ totalItemsCount, pageNumber, itemsPerPage }) => {
+  const { paginationDispatch } = useContext(RestaurantsDispatchContext);
+
   const numberOfPages = Math.ceil(totalItemsCount / itemsPerPage);
   const pageNumberButtons = Array(numberOfPages).fill(0);
 
@@ -15,14 +14,19 @@ export const Pagination = ({
       <div className="pagination-buttons-container">
         <button
           className="btn outline"
-          onClick={() => onPageChange(1)}
+          onClick={() =>
+            paginationDispatch({
+              type: "first_page",
+              pageNumber: 1,
+            })
+          }
           disabled={pageNumber === 1}
         >
           {"<<"}
         </button>
         <button
           className="btn outline"
-          onClick={() => onPageChange((pageNumber) => pageNumber - 1)}
+          onClick={() => paginationDispatch({ type: "prev_page" })}
           disabled={pageNumber === 1}
         >
           {"<"}
@@ -32,7 +36,12 @@ export const Pagination = ({
             <button
               className={`btn ${pageNumber === i + 1 ? "filled" : "outline"}`}
               key={i}
-              onClick={() => onPageChange(i + 1)}
+              onClick={() =>
+                paginationDispatch({
+                  type: "click_page_number",
+                  pageNumber: i + 1,
+                })
+              }
             >
               {i + 1}
             </button>
@@ -40,14 +49,19 @@ export const Pagination = ({
         })}
         <button
           className="btn outline"
-          onClick={() => onPageChange((pageNumber) => pageNumber + 1)}
+          onClick={() => paginationDispatch({ type: "next_page" })}
           disabled={numberOfPages === pageNumber}
         >
           {">"}
         </button>
         <button
           className="btn outline"
-          onClick={() => onPageChange(numberOfPages)}
+          onClick={() =>
+            paginationDispatch({
+              type: "last_page",
+              pageNumber: numberOfPages,
+            })
+          }
           disabled={pageNumber === numberOfPages}
         >
           {">>"}

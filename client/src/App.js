@@ -4,18 +4,41 @@ import {
   RestaurantsContext,
   RestaurantsDispatchContext,
 } from "./RestaurantsContext";
-import { cartReducer, queryReducer } from "./reducers";
+import {
+  cartReducer,
+  paginationReducer,
+  queryReducer,
+  restaurantsReducer,
+} from "./reducers";
 import { Header } from "./components";
 import "./App.css";
 
 function App() {
-  const [query, queryDispatch] = useReducer(queryReducer, "");
+  const [displayOptions, displayOptionsDispatch] = useReducer(queryReducer, {
+    query: "",
+    sortOption: "deliveryTime",
+    showPagination: false,
+  });
+  const [pageNumber, paginationDispatch] = useReducer(paginationReducer, 1);
   const [cartItems, cartDispatch] = useReducer(cartReducer, []);
+  const [restaurants, restaurantsDispatch] = useReducer(restaurantsReducer, []);
 
   return (
-    <RestaurantsContext.Provider value={{ query, cartItems }}>
+    <RestaurantsContext.Provider
+      value={{
+        displayOptions,
+        cartItems,
+        restaurants,
+        pageNumber,
+      }}
+    >
       <RestaurantsDispatchContext.Provider
-        value={{ queryDispatch, cartDispatch }}
+        value={{
+          displayOptionsDispatch,
+          cartDispatch,
+          restaurantsDispatch,
+          paginationDispatch,
+        }}
       >
         <div className="app">
           <Header />
