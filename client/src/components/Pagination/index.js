@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
 import "./pagination.css";
 import { useContext } from "react";
-import { RestaurantsDispatchContext } from "../../RestaurantsContext";
+import {
+  RestaurantsContext,
+  RestaurantsDispatchContext,
+} from "../../RestaurantsContext";
 
-export const Pagination = ({ totalItemsCount, pageNumber, itemsPerPage }) => {
+export const Pagination = ({ totalItemsCount, itemsPerPage }) => {
   const { paginationDispatch } = useContext(RestaurantsDispatchContext);
-
+  const { pageNumber } = useContext(RestaurantsContext);
   const numberOfPages = Math.ceil(totalItemsCount / itemsPerPage);
   const pageNumberButtons = Array(numberOfPages).fill(0);
 

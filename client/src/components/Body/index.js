@@ -10,7 +10,7 @@ export const Body = () => {
   const { restaurantsDispatch } = useContext(RestaurantsDispatchContext);
   const { displayOptions, restaurants, pageNumber } =
     useContext(RestaurantsContext);
-  const { sortOption, showPagination } = displayOptions;
+  const { query, sortOption, showPagination } = displayOptions;
 
   useEffect(() => {
     fetch("/getAllRestaurants")
@@ -22,9 +22,7 @@ export const Body = () => {
   }, [restaurantsDispatch]);
 
   const searchResults = restaurants.filter((restaurant) => {
-    return restaurant.data.name
-      .toLowerCase()
-      .includes(displayOptions.query.toLowerCase());
+    return restaurant.data.name.toLowerCase().includes(query.toLowerCase());
   });
 
   const sortedRestaurants = sortBy(searchResults, [
@@ -47,13 +45,12 @@ export const Body = () => {
 
   return (
     <>
-      <Toggle showPagination={showPagination} />
+      <Toggle />
       <Sort />
       <Cards restaurants={restaurantsToShow} />
       {showPagination && (
         <Pagination
-          totalItemsCount={sortedRestaurants.length}
-          pageNumber={pageNumber}
+          totalItemsCount={searchResults.length}
           itemsPerPage={itemsPerPage}
         />
       )}
