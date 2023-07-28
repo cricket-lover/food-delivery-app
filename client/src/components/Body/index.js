@@ -13,7 +13,7 @@ export const Body = () => {
   const { query, sortOption, showPagination } = displayOptions;
 
   useEffect(() => {
-    fetch("/getAllRestaurants")
+    fetch("/api/getAllRestaurants")
       .then((res) => res.json())
       .then((data) => {
         restaurantsDispatch({ type: "load", restaurants: data });

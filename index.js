@@ -20,17 +20,16 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.get("/ping", (req, res) => {
+app.get("/api/ping", (req, res) => {
   res.json({ msg: "Pong" });
 });
 
-app.get("/getAllRestaurants", (req, res) => {
-  console.log("Requested /getAllRestaurants");
+app.get("/api/getAllRestaurants", (req, res) => {
   res.status(200).json(restaurants);
 });
 
-app.all("/*", (req, res) => {
-  res.json({ error: "Page Not Found" });
+app.all("/api/*", (req, res) => {
+  res.json({ error: "Page Not Found in the server" });
 });
 
 app.listen(PORT, () => console.log("Listening on Port", PORT));
