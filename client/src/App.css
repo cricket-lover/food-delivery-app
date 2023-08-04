@@ -1,6 +1,6 @@
 body {
-  --primary-color: #1e3050;
-  --primary-color-light: #f2f5ff;
+  --primary-color: #35155d;
+  --primary-color-light: #f5edff;
   --white: #ffffff;
   color: var(--primary-color);
   background-color: var(--primary-color-light);
