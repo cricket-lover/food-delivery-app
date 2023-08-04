@@ -7,6 +7,10 @@ import { NoCardsFound } from "./NoCardsFound/index.js";
 import { Toggle } from "./Toggle/index.js";
 import { CartIcon } from "./CartIcon/index.js";
 import { Header } from "./Header/index.js";
+import { Body } from "./Body/index.js";
+import { Signup } from "./Signup/index.js";
+import { Login } from "./Login/index.js";
+import { Logout } from "./Logout/index.js";
 
 export {
   Card,
@@ -18,4 +22,8 @@ export {
   Toggle,
   CartIcon,
   Header,
+  Body,
+  Signup,
+  Login,
+  Logout,
 };

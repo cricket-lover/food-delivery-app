@@ -75,3 +75,19 @@ export const restaurantsReducer = (restaurants, action) => {
     }
   }
 };
+
+export const userReducer = (user, action) => {
+  switch (action.type) {
+    case "create": {
+      return action.user;
+    }
+
+    case "delete": {
+      return null;
+    }
+
+    default: {
+      throw Error("Unknown action: " + action.type);
+    }
+  }
+};
