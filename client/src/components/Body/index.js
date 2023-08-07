@@ -16,9 +16,12 @@ export const Body = () => {
     fetch("/api/getAllRestaurants")
       .then((res) => res.json())
       .then((data) => {
+        if (data.err) {
+          throw new Error(data.err);
+        }
         restaurantsDispatch({ type: "load", restaurants: data });
       })
-      .catch((err) => console.warn(err.message));
+      .catch((err) => console.log(err));
   }, [restaurantsDispatch]);
 
   const searchResults = restaurants.filter((restaurant) => {

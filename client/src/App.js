@@ -9,6 +9,7 @@ import {
   paginationReducer,
   queryReducer,
   restaurantsReducer,
+  userReducer,
 } from "./reducers";
 import { Header } from "./components";
 import "./App.css";
@@ -22,6 +23,10 @@ function App() {
   const [pageNumber, paginationDispatch] = useReducer(paginationReducer, 1);
   const [cartItems, cartDispatch] = useReducer(cartReducer, []);
   const [restaurants, restaurantsDispatch] = useReducer(restaurantsReducer, []);
+  const [user, userDispatch] = useReducer(
+    userReducer,
+    localStorage.getItem("user")
+  );
 
   return (
     <RestaurantsContext.Provider
@@ -30,6 +35,7 @@ function App() {
         cartItems,
         restaurants,
         pageNumber,
+        user,
       }}
     >
       <RestaurantsDispatchContext.Provider
@@ -38,11 +44,14 @@ function App() {
           cartDispatch,
           restaurantsDispatch,
           paginationDispatch,
+          userDispatch,
         }}
       >
         <div className="app">
           <Header />
-          <Outlet />
+          <main className="main-container">
+            <Outlet />
+          </main>
         </div>
       </RestaurantsDispatchContext.Provider>
     </RestaurantsContext.Provider>
