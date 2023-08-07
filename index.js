@@ -13,43 +13,36 @@ app.use(express.json());
 app.use(cookieParser());
 
 const users = JSON.parse(fs.readFileSync("./data/users.json", "utf8"));
-const refreshTokens = JSON.parse(
-  fs.readFileSync("./data/refreshTokens.json", "utf8")
+const blockedTokens = JSON.parse(
+  fs.readFileSync("./data/blockedTokens.json", "utf8")
 );
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const accessToken = authHeader && authHeader.split(" ")[1];
-  const refreshToken = req.cookies.refresh_token;
   if (!accessToken) {
     return res.status(401).json({ err: "Unauthorized" });
   }
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (user) {
-      req.user = user;
-      next();
+    console.log("Is Valid --->", err, user, blockedTokens);
+    if (err || blockedTokens.includes(accessToken)) {
+      return res.status(403).json({ err: "Access token is not valid" });
     }
 
-    if (!refreshToken)
-      return res.status(403).json({ err: "Refresh token not found" });
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-      if (err) return res.status(403).json({ err });
-      const accessToken = generateAccessToken({ name: user.username });
-      return res.json({ accessToken });
-    });
-    return res.status(403).json({ err: "Forbidden" });
+    req.user = user;
+    next();
   });
 };
 
 const generateAccessToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "2m" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 };
 
-app.get("/api/ping", (req, res) => {
+app.get("/api/ping", authenticateToken, (req, res) => {
   res.json({ msg: "Pong" });
 });
 
-app.get("/api/getAllRestaurants", authenticateToken, (req, res) => {
+app.get("/api/getAllRestaurants", (req, res) => {
   res.status(200).json(restaurants);
 });
 
@@ -84,21 +77,7 @@ app.post("/api/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (isPasswordValid) {
       const accessToken = generateAccessToken(user);
-
-      const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
-      // fs.writeFileSync(
-      //   "./data/refreshTokens.json",
-      //   JSON.stringify([...refreshTokens, refreshToken], null, 2),
-      //   "utf8"
-      // );
-      return res
-        .cookie("refresh_token", refreshToken, {
-          secure: process.env.NODE_ENV === "production", // Set to true if using HTTPS
-          httpOnly: true,
-          sameSite: "strict", // Adjust to your requirements
-        })
-        .status(200)
-        .json({ accessToken });
+      return res.status(200).json({ accessToken });
     }
     return res.status(401).json({ err: "Wrong credentials" });
   } catch (err) {
@@ -106,25 +85,14 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.post("/api/token", (req, res) => {
-  const token = req.cookies.refresh_token;
-  if (!token) return res.status(403).json({ err: "Refresh token not found" });
-
-  if (!refreshTokens.includes(token))
-    return res.status(403).json({ err: "Refresh token is not valid" });
-  jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ err });
-    const accessToken = generateAccessToken({ name: user.username });
-    return res.json({ accessToken });
-  });
-});
-
-app.delete("/api/logout", (req, res) => {
-  // refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-  res
-    .clearCookie("refresh_token")
-    .status(204)
-    .json({ message: "You're now logged out." });
+app.delete("/api/logout", authenticateToken, (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const accessToken = authHeader && authHeader.split(" ")[1];
+  fs.writeFileSync(
+    "./data/blockedTokens.json",
+    JSON.stringify([...blockedTokens, accessToken])
+  );
+  res.status(204).json({ msg: "You're now logged out." });
 });
 
 app.all("/api/*", (req, res) => {

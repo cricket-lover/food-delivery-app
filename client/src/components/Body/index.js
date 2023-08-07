@@ -13,21 +13,15 @@ export const Body = () => {
   const { query, sortOption, showPagination } = displayOptions;
 
   useEffect(() => {
-    const token = sessionStorage.getItem("access_token") || "";
-    console.log(token);
-    if (token) {
-      fetch("/api/getAllRestaurants", {
-        headers: { authorization: `Bearer ${token}` },
+    fetch("/api/getAllRestaurants")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.err) {
+          throw new Error(data.err);
+        }
+        restaurantsDispatch({ type: "load", restaurants: data });
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.err) {
-            throw new Error(data.err);
-          }
-          restaurantsDispatch({ type: "load", restaurants: data });
-        })
-        .catch((err) => console.log("err.message"));
-    }
+      .catch((err) => console.log(err));
   }, [restaurantsDispatch]);
 
   const searchResults = restaurants.filter((restaurant) => {

@@ -5,13 +5,15 @@ export const Logout = () => {
   const { userDispatch } = useContext(RestaurantsDispatchContext);
 
   const logoutHandler = async (e) => {
+    const token = localStorage.getItem("access_token") || "";
+
     const response = await fetch("/api/logout", {
       method: "DELETE",
+      headers: { authorization: `Bearer ${token}` },
     });
 
     if (response.status === 204) {
-      console.log("User Logged out successfully");
-      sessionStorage.removeItem("access_token");
+      localStorage.removeItem("access_token");
       userDispatch({ type: "delete" });
       return;
     }

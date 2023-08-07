@@ -31,7 +31,7 @@ export const Login = () => {
       console.log(err);
       return;
     }
-    sessionStorage.setItem("access_token", accessToken);
+    localStorage.setItem("access_token", accessToken);
     navigate(-1);
     userDispatch({ type: "create", user: credentials });
   };

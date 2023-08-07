@@ -79,10 +79,12 @@ export const restaurantsReducer = (restaurants, action) => {
 export const userReducer = (user, action) => {
   switch (action.type) {
     case "create": {
+      localStorage.setItem("user", action.user);
       return action.user;
     }
 
     case "delete": {
+      localStorage.removeItem("user");
       return null;
     }
 
