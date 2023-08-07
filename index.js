@@ -24,6 +24,7 @@ const authenticateToken = (req, res, next) => {
     return res.status(401).json({ err: "Unauthorized" });
   }
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    console.log("Is Valid --->", err, user, blockedTokens);
     if (err || blockedTokens.includes(accessToken)) {
       return res.status(403).json({ err: "Access token is not valid" });
     }
