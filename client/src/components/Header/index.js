@@ -21,7 +21,7 @@ export const Header = () => {
         }
         console.log(data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.log(err));
   };
   return (
     <header className="header">
