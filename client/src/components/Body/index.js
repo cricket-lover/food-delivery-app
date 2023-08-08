@@ -48,8 +48,10 @@ export const Body = () => {
 
   return (
     <>
-      <Toggle />
-      <Sort />
+      <section className="options">
+        <Toggle />
+        <Sort />
+      </section>
       <Cards restaurants={restaurantsToShow} />
       {showPagination && (
         <Pagination

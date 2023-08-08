@@ -39,7 +39,15 @@ export const Card = ({ data }) => {
   const handleOnClick = () => {
     cartDispatch({
       type: "add_to_cart",
-      item: { cloudinaryImageId, name, avgRating, id },
+      item: {
+        cloudinaryImageId,
+        name,
+        cuisines,
+        avgRating,
+        costForTwo,
+        deliveryTime,
+        id,
+      },
     });
   };
 

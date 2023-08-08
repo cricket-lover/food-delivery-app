@@ -30,7 +30,11 @@ export const Header = () => {
       </h1>
       <InputBox />
       {user ? <Logout /> : <Link to={"/login"}>Login</Link>}
-      {<button onClick={protectedRouteHandler}>Protected Route</button>}
+      {
+        <button className="btn" onClick={protectedRouteHandler}>
+          Protected Route
+        </button>
+      }
       <CartIcon />
     </header>
   );

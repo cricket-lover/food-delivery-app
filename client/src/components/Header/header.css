@@ -4,6 +4,6 @@
   padding: 1rem;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--primary-color);
-  color: var(--primary-color-light);
+  /* background-color: var(--primary-color);
+  color: var(--primary-color-light); */
 }

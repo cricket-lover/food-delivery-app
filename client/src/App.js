@@ -15,13 +15,15 @@ import { Header } from "./components";
 import "./App.css";
 
 function App() {
+  const existingCartItems =
+    JSON.parse(localStorage.getItem("cart_items")) || [];
   const [displayOptions, displayOptionsDispatch] = useReducer(queryReducer, {
     query: "",
     sortOption: "deliveryTime",
     showPagination: false,
   });
   const [pageNumber, paginationDispatch] = useReducer(paginationReducer, 1);
-  const [cartItems, cartDispatch] = useReducer(cartReducer, []);
+  const [cartItems, cartDispatch] = useReducer(cartReducer, existingCartItems);
   const [restaurants, restaurantsDispatch] = useReducer(restaurantsReducer, []);
   const [user, userDispatch] = useReducer(
     userReducer,

@@ -6,6 +6,7 @@ import { Pagination } from "./Pagination/index.js";
 import { NoCardsFound } from "./NoCardsFound/index.js";
 import { Toggle } from "./Toggle/index.js";
 import { CartIcon } from "./CartIcon/index.js";
+import { TrashIcon } from "./TrashIcon/index.js";
 import { Header } from "./Header/index.js";
 import { Body } from "./Body/index.js";
 import { Signup } from "./Signup/index.js";
@@ -21,6 +22,7 @@ export {
   NoCardsFound,
   Toggle,
   CartIcon,
+  TrashIcon,
   Header,
   Body,
   Signup,

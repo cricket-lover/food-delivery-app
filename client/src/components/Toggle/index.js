@@ -16,7 +16,7 @@ export const Toggle = () => {
         className="btn outline"
         onClick={(e) => displayOptionsDispatch({ type: "toggle_pagination" })}
       >
-        {showPagination ? "ON" : "OFF"}
+        {showPagination ? "Off" : "On"}
       </button>
     </div>
   );

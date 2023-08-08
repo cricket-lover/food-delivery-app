@@ -55,7 +55,12 @@ export const cartReducer = (cartItems, action) => {
           ...cartItems.slice(index + 1),
         ];
       }
-      return [...cartItems, { item: action.item, quantity: 1 }];
+      const updatedCartItems = [
+        ...cartItems,
+        { item: action.item, quantity: 1 },
+      ];
+      localStorage.setItem("cart_items", JSON.stringify(updatedCartItems));
+      return updatedCartItems;
     }
 
     default: {

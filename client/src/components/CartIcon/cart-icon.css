@@ -6,7 +6,7 @@
 
 .cart-icon {
   height: 1.2rem;
-  fill: var(--primary-color-light);
+  /* fill: var(--primary-color-light); */
 }
 
 .cart-items-count {

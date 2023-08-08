@@ -39,7 +39,7 @@ export const Signup = () => {
       }
       const user = await response.json();
       navigate(-1);
-      userDispatch({ type: "create", user });
+      userDispatch({ type: "create", user: JSON.stringify(user) });
     } catch (error) {
       console.log(error);
     }
