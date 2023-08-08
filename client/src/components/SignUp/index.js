@@ -46,7 +46,6 @@ export const Signup = () => {
   };
 
   if (user) {
-    console.log(user);
     return <p>You are already Signed in</p>;
   }
 

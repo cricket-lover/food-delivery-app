@@ -33,7 +33,7 @@ export const Login = () => {
     }
     localStorage.setItem("access_token", accessToken);
     navigate(-1);
-    userDispatch({ type: "create", user: credentials });
+    userDispatch({ type: "create", user: JSON.stringify(credentials) });
   };
 
   if (user) {
