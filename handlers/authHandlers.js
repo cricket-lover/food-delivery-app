@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const { generateAccessToken } = require("../utils/index");
 
-const users = JSON.parse(fs.readFileSync("data/users.json", "utf8"));
+const users = JSON.parse(fs.readFileSync("./data/users.json", "utf8"));
 const blockedTokens = JSON.parse(
   fs.readFileSync("./data/blockedTokens.json", "utf8")
 );
