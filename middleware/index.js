@@ -1,9 +1,10 @@
 const fs = require("fs");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 const blockedTokens = JSON.parse(
-  fs.readFileSync("./data/blockedTokens.json", "utf8")
+  fs.readFileSync(path.resolve(__dirname, "../data/blockedTokens.json"), "utf8")
 );
 
 const authenticateToken = (req, res, next) => {

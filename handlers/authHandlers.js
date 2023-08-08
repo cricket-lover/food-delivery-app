@@ -1,11 +1,14 @@
 const bcrypt = require("bcrypt");
 const fs = require("fs");
+const path = require("path");
 
 const { generateAccessToken } = require("../utils/index");
 
-const users = JSON.parse(fs.readFileSync("./data/users.json", "utf8"));
+const users = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, "../data/users.json"), "utf8")
+);
 const blockedTokens = JSON.parse(
-  fs.readFileSync("./data/blockedTokens.json", "utf8")
+  fs.readFileSync(path.resolve(__dirname, "../data/blockedTokens.json"), "utf8")
 );
 
 const signupHandler = async (req, res) => {
@@ -18,7 +21,7 @@ const signupHandler = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     users.push({ username, password: hashedPassword });
     fs.writeFileSync(
-      "./data/users.json",
+      path.resolve(__dirname, "../data/users.json"),
       JSON.stringify(users, null, 2),
       "utf8"
     );
@@ -52,7 +55,7 @@ const logoutHandler = (req, res) => {
   const authHeader = req.headers["authorization"];
   const accessToken = authHeader && authHeader.split(" ")[1];
   fs.writeFileSync(
-    "./data/blockedTokens.json",
+    path.resolve(__dirname, "../data/blockedTokens.json"),
     JSON.stringify([...blockedTokens, accessToken])
   );
   res.status(204).json({ msg: "You're now logged out." });
