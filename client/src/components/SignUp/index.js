@@ -1,16 +1,12 @@
 import React, { useContext, useState } from "react";
 import "./signup.css";
-import {
-  RestaurantsContext,
-  RestaurantsDispatchContext,
-} from "../../RestaurantsContext";
+import { RestaurantsContext } from "../../RestaurantsContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const navigate = useNavigate();
 
   const { user } = useContext(RestaurantsContext);
-  const { userDispatch } = useContext(RestaurantsDispatchContext);
 
   const [credentials, setCredentials] = useState({
     username: "",
@@ -37,9 +33,7 @@ export const Signup = () => {
         console.log(response.status);
         return;
       }
-      const user = await response.json();
       navigate(-1);
-      userDispatch({ type: "create", user: JSON.stringify(user) });
     } catch (error) {
       console.log(error);
     }
