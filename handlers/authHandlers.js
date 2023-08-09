@@ -27,7 +27,7 @@ const signupHandler = async (req, res) => {
     );
     return res.status(201).json({ username, email });
   } catch (error) {
-    return res.sendStatus(500);
+    return res.status(500).json(error);
   }
 };
 
