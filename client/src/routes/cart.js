@@ -1,5 +1,8 @@
 import { useContext } from "react";
-import { RestaurantsContext } from "../RestaurantsContext";
+import {
+  RestaurantsContext,
+  RestaurantsDispatchContext,
+} from "../RestaurantsContext";
 import { StarRating } from "../components/StarRating";
 import { CDN_URL } from "../constants";
 import { TrashIcon } from "../components";
@@ -8,13 +11,19 @@ import "./cart.css";
 
 export const Cart = () => {
   const { cartItems } = useContext(RestaurantsContext);
-  console.log(cartItems);
+  const { cartDispatch } = useContext(RestaurantsDispatchContext);
+
+  const handleClearCart = () => {
+    cartDispatch({
+      type: "clear_cart",
+      item: cartItems,
+    });
+  };
 
   if (cartItems.length === 0) {
     return <div className="cart-page-container">Cart Empty</div>;
   }
 
-  console.log(cartItems);
   return (
     <div className="cart-page-container">
       {cartItems.map(({ item, quantity }) => {
@@ -42,6 +51,9 @@ export const Cart = () => {
           </div>
         );
       })}
+      <button className="btn filled" onClick={handleClearCart}>
+        Clear Cart
+      </button>
     </div>
   );
 };

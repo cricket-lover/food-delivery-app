@@ -21,7 +21,7 @@ export const Body = () => {
         }
         restaurantsDispatch({ type: "load", restaurants: data });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message));
   }, [restaurantsDispatch]);
 
   const searchResults = restaurants.filter((restaurant) => {

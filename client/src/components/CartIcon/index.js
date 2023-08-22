@@ -6,12 +6,11 @@ import { RestaurantsContext } from "../../RestaurantsContext";
 export const CartIcon = () => {
   const { cartItems } = useContext(RestaurantsContext);
 
+  const count = cartItems.reduce((count, item) => (count += item.quantity), 0);
   return (
     <Link to={"/cart"}>
       <div className="cart">
-        <span className="cart-items-count">
-          {cartItems.length ? cartItems.length : ""}
-        </span>
+        <span className="cart-items-count">{count || ""}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 576 512"

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import "./signup.css";
 import { RestaurantsContext } from "../../RestaurantsContext";
 import { Link, useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -29,13 +30,14 @@ export const Signup = () => {
         },
         body: JSON.stringify(credentials),
       });
+      const data = await response.json();
       if (!response.ok) {
-        console.log(response.status);
-        return;
+        throw new Error(data.err);
       }
       navigate(-1);
+      enqueueSnackbar("Signup Successful", { variant: "success" });
     } catch (error) {
-      console.log(error);
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };
 

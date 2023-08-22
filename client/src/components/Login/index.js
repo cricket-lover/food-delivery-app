@@ -5,6 +5,7 @@ import {
   RestaurantsDispatchContext,
 } from "../../RestaurantsContext";
 import { Link, useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 
 export const Login = () => {
   const { user } = useContext(RestaurantsContext);
@@ -28,16 +29,17 @@ export const Login = () => {
     });
     const { err, accessToken } = await response.json();
     if (err) {
-      console.log(err);
+      enqueueSnackbar(err, { variant: "error" });
       return;
     }
     localStorage.setItem("access_token", accessToken);
     navigate(-1);
+    enqueueSnackbar("Login Successful", { variant: "success" });
     userDispatch({ type: "create", user: JSON.stringify(credentials) });
   };
 
   if (user) {
-    return <p>You are already Logged in</p>;
+    return;
   }
 
   return (

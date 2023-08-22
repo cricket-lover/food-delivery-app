@@ -45,16 +45,6 @@ export const paginationReducer = (pageNumber, action) => {
 export const cartReducer = (cartItems, action) => {
   switch (action.type) {
     case "add_to_cart": {
-      const index = cartItems.findIndex(({ item }) => {
-        return item.id === action.item.id;
-      });
-      if (index >= 0) {
-        return [
-          ...cartItems.slice(0, index),
-          { item: action.item, quantity: cartItems[index].quantity + 1 },
-          ...cartItems.slice(index + 1),
-        ];
-      }
       const updatedCartItems = [
         ...cartItems,
         { item: action.item, quantity: 1 },
@@ -62,7 +52,47 @@ export const cartReducer = (cartItems, action) => {
       localStorage.setItem("cart_items", JSON.stringify(updatedCartItems));
       return updatedCartItems;
     }
+    case "remove_from_cart": {
+      const index = cartItems.findIndex(({ item }) => {
+        return item.id === action.item.id;
+      });
+      const updatedCartItems = [
+        ...cartItems.slice(0, index),
+        ...cartItems.slice(index + 1),
+      ];
+      localStorage.setItem("cart_items", JSON.stringify(updatedCartItems));
+      return updatedCartItems;
+    }
 
+    case "increase_quantity": {
+      const index = cartItems.findIndex(({ item }) => {
+        return item.id === action.item.id;
+      });
+      const updatedCartItems = [
+        ...cartItems.slice(0, index),
+        { item: action.item, quantity: cartItems[index].quantity + 1 },
+        ...cartItems.slice(index + 1),
+      ];
+      localStorage.setItem("cart_items", JSON.stringify(updatedCartItems));
+      return updatedCartItems;
+    }
+    case "decrease_quantity": {
+      const index = cartItems.findIndex(({ item }) => {
+        return item.id === action.item.id;
+      });
+      const updatedCartItems = [
+        ...cartItems.slice(0, index),
+        { item: action.item, quantity: cartItems[index].quantity - 1 },
+        ...cartItems.slice(index + 1),
+      ];
+      localStorage.setItem("cart_items", JSON.stringify(updatedCartItems));
+      return updatedCartItems;
+    }
+
+    case "clear_cart":
+      localStorage.removeItem("cart_items");
+      window.location.reload();
+      return [];
     default: {
       throw Error("Unknown action: " + action.type);
     }

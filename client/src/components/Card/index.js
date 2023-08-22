@@ -1,11 +1,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { StarRating } from "../StarRating";
-import { RestaurantsDispatchContext } from "../../RestaurantsContext";
+import {
+  RestaurantsContext,
+  RestaurantsDispatchContext,
+} from "../../RestaurantsContext";
 import { CDN_URL } from "../../constants";
 import "./card.css";
 
 export const Card = ({ data }) => {
+  const { cartItems } = useContext(RestaurantsContext);
   const { cartDispatch } = useContext(RestaurantsDispatchContext);
   const {
     cloudinaryImageId,
@@ -36,7 +40,7 @@ export const Card = ({ data }) => {
     observer.observe(ref.current);
   }, []);
 
-  const handleOnClick = () => {
+  const addToCart = () => {
     cartDispatch({
       type: "add_to_cart",
       item: {
@@ -51,6 +55,52 @@ export const Card = ({ data }) => {
     });
   };
 
+  const increaseQuantity = () => {
+    cartDispatch({
+      type: "increase_quantity",
+      item: {
+        cloudinaryImageId,
+        name,
+        cuisines,
+        avgRating,
+        costForTwo,
+        deliveryTime,
+        id,
+      },
+    });
+  };
+
+  const decreaseQuantity = (cartItem) => {
+    if (cartItem.quantity === 1) {
+      cartDispatch({
+        type: "remove_from_cart",
+        item: {
+          cloudinaryImageId,
+          name,
+          cuisines,
+          avgRating,
+          costForTwo,
+          deliveryTime,
+          id,
+        },
+      });
+      return;
+    }
+    cartDispatch({
+      type: "decrease_quantity",
+      item: {
+        cloudinaryImageId,
+        name,
+        cuisines,
+        avgRating,
+        costForTwo,
+        deliveryTime,
+        id,
+      },
+    });
+  };
+
+  const cartItem = cartItems.find(({ item }) => item.name === name);
   return (
     <div ref={ref} className={`card ${isVisible ? "" : "hidden"}`}>
       <img
@@ -65,9 +115,24 @@ export const Card = ({ data }) => {
         <h5>{deliveryTime} mins</h5>
       </div>
       <StarRating value={avgRating} />
-      <button className={`btn filled`} onClick={handleOnClick}>
-        Add to cart
-      </button>
+      {cartItem ? (
+        <div className="buttons-container">
+          <span
+            className="btn filled"
+            onClick={() => decreaseQuantity(cartItem)}
+          >
+            -
+          </span>
+          <strong>{cartItem.quantity}</strong>
+          <span className="btn filled" onClick={increaseQuantity}>
+            +
+          </span>
+        </div>
+      ) : (
+        <button className={`btn filled`} onClick={addToCart}>
+          Add to cart
+        </button>
+      )}
     </div>
   );
 };

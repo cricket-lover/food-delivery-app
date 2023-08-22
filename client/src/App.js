@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { Outlet } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import {
   RestaurantsContext,
   RestaurantsDispatchContext,
@@ -49,12 +50,14 @@ function App() {
           userDispatch,
         }}
       >
-        <div className="app">
-          <Header />
-          <main className="main-container">
-            <Outlet />
-          </main>
-        </div>
+        <SnackbarProvider>
+          <div className="app">
+            <Header />
+            <main className="main-container">
+              <Outlet />
+            </main>
+          </div>
+        </SnackbarProvider>
       </RestaurantsDispatchContext.Provider>
     </RestaurantsContext.Provider>
   );
