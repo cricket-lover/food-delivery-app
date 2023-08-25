@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const { authenticateToken } = require("./middleware");
 const {
   getAllRestaurants,
@@ -17,6 +18,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 app.get("/api/ping", authenticateToken, (req, res) => {
   res.json({ msg: "Pong" });

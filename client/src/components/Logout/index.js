@@ -7,7 +7,7 @@ export const Logout = () => {
   const logoutHandler = async (e) => {
     const token = localStorage.getItem("access_token") || "";
 
-    const response = await fetch("/api/logout", {
+    const response = await fetch("http://localhost:5000/api/logout", {
       method: "DELETE",
       headers: { authorization: `Bearer ${token}` },
     });
