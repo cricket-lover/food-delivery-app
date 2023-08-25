@@ -1,10 +1,11 @@
 import { useEffect, useContext } from "react";
 import { sortBy } from "lodash";
-import { Sort, Cards, Pagination, Toggle } from "../../components";
+import { Sort, Cards, Pagination, Toggle } from "..";
 import {
   RestaurantsContext,
   RestaurantsDispatchContext,
 } from "../../RestaurantsContext";
+import { API_URL } from "../../constants";
 
 export const Body = () => {
   const { restaurantsDispatch } = useContext(RestaurantsDispatchContext);
@@ -13,7 +14,7 @@ export const Body = () => {
   const { query, sortOption, showPagination } = displayOptions;
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/restaurants")
+    fetch(`${API_URL}/api/restaurants`)
       .then((res) => res.json())
       .then((data) => {
         if (data.err) {

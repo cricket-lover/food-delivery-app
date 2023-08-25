@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Card, NoCardsFound } from "../";
+import { Card, NoCardsFound } from "..";
 
 import "./cards.css";
 
