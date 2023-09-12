@@ -9,9 +9,9 @@ import { CartIcon } from "./CartIcon/index.js";
 import { TrashIcon } from "./TrashIcon/index.js";
 import { Header } from "./Header/index.js";
 import { Body } from "./Body/index.js";
-import { Signup } from "./Signup/index.js";
 import { Login } from "./Login/index.js";
 import { Logout } from "./Logout/index.js";
+import { Signup } from "./Signup/index.js";
 
 export {
   Card,
