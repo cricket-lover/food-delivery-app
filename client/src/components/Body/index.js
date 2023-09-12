@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { sortBy } from "lodash";
-import { Sort, Cards, Pagination, Toggle } from "..";
+import { Sort, Cards, Pagination, Toggle } from "../../components";
 import {
   RestaurantsContext,
   RestaurantsDispatchContext,

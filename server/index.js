@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const morgan = require("morgan");
 const { authenticateToken } = require("./middleware");
 const {
   getAllRestaurants,
@@ -19,6 +20,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(morgan("tiny"));
 
 app.get("/", (req, res) => {
   res.send("Hey this is my API running 🥳");
@@ -26,6 +28,10 @@ app.get("/", (req, res) => {
 
 app.get("/api/ping", authenticateToken, (req, res) => {
   res.json({ msg: "Pong" });
+});
+
+app.get("/api/live", (req, res) => {
+  res.send(true);
 });
 
 app.get("/api/restaurants", getAllRestaurants);
