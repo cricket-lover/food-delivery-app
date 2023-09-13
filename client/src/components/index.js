@@ -11,7 +11,6 @@ import { Header } from "./Header/index.js";
 import { Body } from "./Body/index.js";
 import { Login } from "./Login/index.js";
 import { Logout } from "./Logout/index.js";
-import { Signup } from "./Signup/index.js";
 
 export {
   Card,
@@ -25,7 +24,6 @@ export {
   TrashIcon,
   Header,
   Body,
-  Signup,
   Login,
   Logout,
 };
