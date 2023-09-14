@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import "./signup.css";
+import "./register.css";
 import { RestaurantsContext } from "../../RestaurantsContext";
 import { Link, useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import { API_URL } from "../../constants";
 
-export const Signup = () => {
+export const Register = () => {
   const navigate = useNavigate();
 
   const { user } = useContext(RestaurantsContext);
@@ -16,7 +16,7 @@ export const Signup = () => {
     email: "",
   });
 
-  const signUpHandler = async (e) => {
+  const registerHandler = async (e) => {
     e.preventDefault();
     const { username, password, email } = credentials;
 
@@ -24,7 +24,7 @@ export const Signup = () => {
       return;
     }
     try {
-      const response = await fetch(`${API_URL}/api/signup`, {
+      const response = await fetch(`${API_URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const Signup = () => {
         throw new Error(data.err);
       }
       navigate(-1);
-      enqueueSnackbar("Signup Successful", { variant: "success" });
+      enqueueSnackbar("Register Successful", { variant: "success" });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -47,7 +47,7 @@ export const Signup = () => {
   }
 
   return (
-    <form className="signup-form" onSubmit={signUpHandler}>
+    <form className="register-form" onSubmit={registerHandler}>
       <h3>Create an account</h3>
       <label htmlFor="username" className="label">
         Username:
@@ -94,8 +94,8 @@ export const Signup = () => {
           className="outline"
         />
       </label>
-      <button onClick={signUpHandler} className="signup-btn btn filled">
-        Sign Up
+      <button onClick={registerHandler} className="register-btn btn filled">
+        Register
       </button>
       <div>
         <span>Already have an account: </span>

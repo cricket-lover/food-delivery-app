@@ -7,7 +7,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Cart } from "./routes/cart";
 import ErrorPage from "./components/ErrorPage";
-import { Body, Login, Logout, Signup } from "./components";
+import { Body, Login, Logout, Register } from "./components";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +24,8 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: "/signup",
-        element: <Signup />,
+        path: "/register",
+        element: <Register />,
       },
       {
         path: "/login",

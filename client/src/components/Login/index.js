@@ -44,7 +44,7 @@ export const Login = () => {
   }
 
   return (
-    <form className="signup-form">
+    <form className="register-form">
       <h2>Login to your account</h2>
       <label htmlFor="username" className="label">
         Username:
@@ -81,8 +81,8 @@ export const Login = () => {
       </button>
       <div>
         <span>Don't have an account: </span>
-        <Link to={"/signup"}>
-          <button className="btn link-to-btn">Sign up</button>
+        <Link to={"/register"}>
+          <button className="btn link-to-btn">Register</button>
         </Link>
       </div>
     </form>
