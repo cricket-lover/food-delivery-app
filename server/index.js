@@ -49,7 +49,7 @@ app.post("/orders", async (req, res) => {
     });
 
     const options = {
-      amount: 75000, // amount in smallest currency unit
+      amount: req.body.amount, // amount in smallest currency unit
       currency: "INR",
     };
 
