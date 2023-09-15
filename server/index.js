@@ -37,7 +37,7 @@ app.get("/api/live", (req, res) => {
 
 app.get("/api/restaurants", getAllRestaurants);
 
-app.post("/api/signup", signupHandler);
+app.post("/api/register", signupHandler);
 
 app.post("/api/login", loginHandler);
 
@@ -63,6 +63,10 @@ app.post("/orders", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+app.post("/payment/success", (req, res) =>
+  res.json({ msg: "Payment Successful" })
+);
 
 app.delete("/api/logout", authenticateToken, logoutHandler);
 
