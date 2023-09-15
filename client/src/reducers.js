@@ -91,7 +91,6 @@ export const cartReducer = (cartItems, action) => {
 
     case "clear_cart":
       localStorage.removeItem("cart_items");
-      window.location.reload();
       return [];
     default: {
       throw Error("Unknown action: " + action.type);

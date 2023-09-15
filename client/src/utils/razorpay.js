@@ -15,7 +15,7 @@ export const loadScript = (src) => {
   });
 };
 
-export const displayRazorpay = async (orderDetails) => {
+export const displayRazorpay = async (orderDetails, paymentHandler) => {
   const res = await loadScript(RAZORPAY_SCRIPT_URL);
 
   if (!res) {
@@ -56,16 +56,7 @@ export const displayRazorpay = async (orderDetails) => {
         razorpayOrderId: response.razorpay_order_id,
         razorpaySignature: response.razorpay_signature,
       };
-
-      const result = await fetch(`${API_URL}/payment/success`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((res) => res.json());
-
-      enqueueSnackbar(result.msg, { variant: "success" });
+      paymentHandler(data);
     },
   };
 

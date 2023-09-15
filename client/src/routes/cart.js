@@ -4,11 +4,12 @@ import {
   RestaurantsDispatchContext,
 } from "../RestaurantsContext";
 import { StarRating } from "../components/StarRating";
-import { CDN_URL } from "../constants";
+import { API_URL, CDN_URL } from "../constants";
 import { TrashIcon } from "../components";
 import { displayRazorpay } from "../utils/razorpay";
 
 import "./cart.css";
+import { enqueueSnackbar } from "notistack";
 
 export const Cart = () => {
   const { cartItems } = useContext(RestaurantsContext);
@@ -22,6 +23,22 @@ export const Cart = () => {
     }, 0);
     setAmount(amount);
   }, [cartItems]);
+
+  const paymentHandler = async (data) => {
+    const res = await fetch(`${API_URL}/payment/success`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await res.json();
+
+    if (result.success) {
+      enqueueSnackbar(result.msg, { variant: "success" });
+      handleClearCart();
+    }
+  };
 
   const handleClearCart = () => {
     cartDispatch({
@@ -68,7 +85,7 @@ export const Cart = () => {
         <p>Order above items now!</p>
         <button
           className="btn filled"
-          onClick={() => displayRazorpay({ amount })}
+          onClick={() => displayRazorpay({ amount }, paymentHandler)}
         >
           Pay ₹{amount / 100}
         </button>

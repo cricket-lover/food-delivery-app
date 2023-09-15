@@ -64,7 +64,7 @@ app.post("/orders", async (req, res) => {
 });
 
 app.post("/payment/success", (req, res) =>
-  res.json({ msg: "Payment Successful" })
+  res.json({ msg: "Payment Successful", success: true })
 );
 
 app.delete("/api/logout", authenticateToken, logoutHandler);
