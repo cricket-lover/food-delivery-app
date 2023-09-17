@@ -7,6 +7,7 @@ import {
 } from "../../RestaurantsContext";
 import { CDN_URL } from "../../constants";
 import "./card.css";
+import { decreaseQuantity, increaseQuantity } from "../../utils/cart";
 
 export const Card = ({ data }) => {
   const { cartItems } = useContext(RestaurantsContext);
@@ -55,51 +56,6 @@ export const Card = ({ data }) => {
     });
   };
 
-  const increaseQuantity = () => {
-    cartDispatch({
-      type: "increase_quantity",
-      item: {
-        cloudinaryImageId,
-        name,
-        cuisines,
-        avgRating,
-        costForTwo,
-        deliveryTime,
-        id,
-      },
-    });
-  };
-
-  const decreaseQuantity = (cartItem) => {
-    if (cartItem.quantity === 1) {
-      cartDispatch({
-        type: "remove_from_cart",
-        item: {
-          cloudinaryImageId,
-          name,
-          cuisines,
-          avgRating,
-          costForTwo,
-          deliveryTime,
-          id,
-        },
-      });
-      return;
-    }
-    cartDispatch({
-      type: "decrease_quantity",
-      item: {
-        cloudinaryImageId,
-        name,
-        cuisines,
-        avgRating,
-        costForTwo,
-        deliveryTime,
-        id,
-      },
-    });
-  };
-
   const cartItem = cartItems.find(({ item }) => item.name === name);
   return (
     <div ref={ref} className={`card ${isVisible ? "" : "hidden"}`}>
@@ -119,12 +75,15 @@ export const Card = ({ data }) => {
         <div className="buttons-container">
           <span
             className="btn filled"
-            onClick={() => decreaseQuantity(cartItem)}
+            onClick={() => decreaseQuantity(cartDispatch, cartItem)}
           >
             -
           </span>
           <strong>{cartItem.quantity}</strong>
-          <span className="btn filled" onClick={increaseQuantity}>
+          <span
+            className="btn filled"
+            onClick={() => increaseQuantity(cartDispatch, cartItem)}
+          >
             +
           </span>
         </div>

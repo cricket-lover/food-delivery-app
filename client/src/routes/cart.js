@@ -10,6 +10,7 @@ import { displayRazorpay } from "../utils/razorpay";
 
 import "./cart.css";
 import { enqueueSnackbar } from "notistack";
+import { decreaseQuantity, increaseQuantity } from "../utils/cart";
 
 export const Cart = () => {
   const { cartItems } = useContext(RestaurantsContext);
@@ -70,9 +71,21 @@ export const Cart = () => {
               {item.costForTwo / 100}
             </span>
             <div className="buttons-container btn filled">
-              <span>-</span>
+              <span
+                onClick={() =>
+                  decreaseQuantity(cartDispatch, { item, quantity })
+                }
+              >
+                -
+              </span>
               <span>{quantity}</span>
-              <span>+</span>
+              <span
+                onClick={() =>
+                  increaseQuantity(cartDispatch, { item, quantity })
+                }
+              >
+                +
+              </span>
             </div>
             <TrashIcon />
           </div>

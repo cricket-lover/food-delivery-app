@@ -10,7 +10,7 @@
   align-items: center;
   gap: 1rem;
   box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px;
-  border-radius: 100px;
+  border-radius: 10px;
   width: 100%;
   padding: 1rem;
   justify-content: space-between;
@@ -24,7 +24,7 @@
 
 .cart-item-name {
   text-align: center;
-  max-width: 10rem;
+  width: 10rem;
 }
 
 .cost {
