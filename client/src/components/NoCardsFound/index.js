@@ -1,5 +1,3 @@
-import "./no-cards-found.css";
-
 export const NoCardsFound = ({ msg }) => {
-  return <p className="no-cards-message">{msg}</p>;
+  return <p className="text-2xl font-mono font-bold text-center">{msg}</p>;
 };

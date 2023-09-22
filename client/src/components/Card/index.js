@@ -6,7 +6,6 @@ import {
   RestaurantsDispatchContext,
 } from "../../RestaurantsContext";
 import { CDN_URL } from "../../constants";
-import "./card.css";
 import { decreaseQuantity, increaseQuantity } from "../../utils/cart";
 
 export const Card = ({ data }) => {
@@ -58,37 +57,46 @@ export const Card = ({ data }) => {
 
   const cartItem = cartItems.find(({ item }) => item.name === name);
   return (
-    <div ref={ref} className={`card ${isVisible ? "" : "hidden"}`}>
+    <div
+      ref={ref}
+      className={
+        "flex w-72 justify-around flex-col gap-2 shadow-lg bg-slate-200 p-4 rounded-lg " +
+        (!isVisible && " opacity-0")
+      }
+    >
       <img
         src={CDN_URL + cloudinaryImageId}
         alt={name}
-        className="restaurant-image"
+        className="rounded-lg w-64 aspect-video"
       />
-      <h3 className="restaurant-name">{name}</h3>
+      <h3 className="font-bold uppercase">{name}</h3>
       <h4>{cuisines.join(", ")}</h4>
-      <div className="cost-and-time">
+      <div className="flex flex-col gap-2">
         <h5>₹{costForTwo / 100} FOR TWO</h5>
         <h5>{deliveryTime} mins</h5>
       </div>
       <StarRating value={avgRating} />
       {cartItem ? (
-        <div className="buttons-container">
+        <div className="flex justify-center items-center gap-4">
           <span
-            className="btn filled"
+            className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
             onClick={() => decreaseQuantity(cartDispatch, cartItem)}
           >
             -
           </span>
           <strong>{cartItem.quantity}</strong>
           <span
-            className="btn filled"
+            className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
             onClick={() => increaseQuantity(cartDispatch, cartItem)}
           >
             +
           </span>
         </div>
       ) : (
-        <button className={`btn filled`} onClick={addToCart}>
+        <button
+          className={`rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light`}
+          onClick={addToCart}
+        >
           Add to cart
         </button>
       )}

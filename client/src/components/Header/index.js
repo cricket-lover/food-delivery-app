@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./header.css";
 import { CartIcon } from "../CartIcon";
 import { InputBox } from "../InputBox";
 import { Logout } from "../Logout";
@@ -10,8 +9,8 @@ export const Header = () => {
   const { user } = useContext(RestaurantsContext);
 
   return (
-    <header className="header">
-      <h1 className="brand-name">
+    <header className="flex gap-4 p-4 items-center justify-end">
+      <h1 className="font-bold text-3xl mr-auto">
         <Link to={"/"}>FoodKaro</Link>
       </h1>
       <InputBox />

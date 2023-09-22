@@ -1,5 +1,3 @@
-import "./star-rating.css";
-
 const Star = ({ marked, starId }) => {
   return (
     <span data-star-id={starId} className="star" role="button">
@@ -10,7 +8,7 @@ const Star = ({ marked, starId }) => {
 
 export const StarRating = ({ value }) => {
   return (
-    <div className="star-rating">
+    <div className="text-current">
       {Array.from({ length: 5 }, (v, i) => (
         <Star
           starId={i + 1}

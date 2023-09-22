@@ -49,12 +49,12 @@ export const Body = () => {
 
   return (
     <>
-      <section className="options">
+      <section className="flex justify-end mr-8 w-full gap-4">
         <Toggle />
         <Sort />
       </section>
       <Cards restaurants={restaurantsToShow} />
-      {showPagination && (
+      {showPagination && restaurantsToShow.length > 0 && (
         <Pagination
           totalItemsCount={searchResults.length}
           itemsPerPage={itemsPerPage}

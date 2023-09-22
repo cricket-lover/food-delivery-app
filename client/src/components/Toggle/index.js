@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import "./toggle.css";
 import {
   RestaurantsContext,
   RestaurantsDispatchContext,
@@ -10,10 +9,10 @@ export const Toggle = () => {
   const { displayOptionsDispatch } = useContext(RestaurantsDispatchContext);
   const { showPagination } = displayOptions;
   return (
-    <div className="toggle">
+    <div>
       <span>Pagination: </span>
       <button
-        className="btn outline"
+        className="rounded-md font-bold p-2 outline-none cursor-pointer border border-solid border-current text-current bg-transparent"
         onClick={(e) => displayOptionsDispatch({ type: "toggle_pagination" })}
       >
         {showPagination ? "Off" : "On"}
