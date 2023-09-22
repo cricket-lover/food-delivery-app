@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import "./register.css";
 import { RestaurantsContext } from "../../RestaurantsContext";
 import { Link, useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
@@ -47,9 +46,14 @@ export const Register = () => {
   }
 
   return (
-    <form className="register-form" onSubmit={registerHandler}>
-      <h3>Create an account</h3>
-      <label htmlFor="username" className="label">
+    <form
+      className="flex flex-col w-80 gap-4 border border-solid border-current p-8"
+      onSubmit={registerHandler}
+    >
+      <h3 className="text-xl font-bold underline text-center">
+        Create an account
+      </h3>
+      <label htmlFor="username" className="flex justify-between h-8 leading-8">
         Username:
         <input
           type="text"
@@ -61,10 +65,10 @@ export const Register = () => {
             }))
           }
           value={credentials.username}
-          className="outline"
+          className="placeholder:italic placeholder:text-slate-400 w-64 border border-solid border-current text-current bg-transparent"
         />
       </label>
-      <label htmlFor="email" className="label">
+      <label htmlFor="email" className="flex justify-between h-8 leading-8">
         Email:
         <input
           type="text"
@@ -76,10 +80,10 @@ export const Register = () => {
             }))
           }
           value={credentials.email}
-          className="outline"
+          className="placeholder:italic placeholder:text-slate-400 w-64 border border-solid border-current text-current bg-transparent"
         />
       </label>
-      <label htmlFor="password" className="label">
+      <label htmlFor="password" className="flex justify-between h-8 leading-8">
         Password:
         <input
           type="password"
@@ -91,16 +95,21 @@ export const Register = () => {
             }))
           }
           value={credentials.password}
-          className="outline"
+          className="placeholder:italic placeholder:text-slate-400 w-64 border border-solid border-current text-current bg-transparent"
         />
       </label>
-      <button onClick={registerHandler} className="register-btn btn filled">
+      <button
+        onClick={registerHandler}
+        className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
+      >
         Register
       </button>
       <div>
         <span>Already have an account: </span>
         <Link to={"/login"}>
-          <button className="btn link-to-btn">Login</button>
+          <button className="rounded-md font-bold p-2 outline-none border-none cursor-pointer underline">
+            Login
+          </button>
         </Link>
       </div>
     </form>

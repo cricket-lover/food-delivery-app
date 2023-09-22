@@ -13,7 +13,6 @@ import {
   userReducer,
 } from "./reducers";
 import { Header } from "./components";
-import "./App.css";
 
 function App() {
   const existingCartItems =
@@ -51,9 +50,9 @@ function App() {
         }}
       >
         <SnackbarProvider>
-          <div className="app">
+          <div className="flex flex-col gap-4">
             <Header />
-            <main className="main-container">
+            <main className="flex flex-col gap-4 items-center">
               <Outlet />
             </main>
           </div>

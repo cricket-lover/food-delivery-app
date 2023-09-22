@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import "./login.css";
 import {
   RestaurantsContext,
   RestaurantsDispatchContext,
@@ -44,9 +43,11 @@ export const Login = () => {
   }
 
   return (
-    <form className="register-form">
-      <h2>Login to your account</h2>
-      <label htmlFor="username" className="label">
+    <form className="flex flex-col w-80 gap-5 border border-solid border-current p-8">
+      <h3 className="text-xl font-bold underline text-center">
+        Login to your account
+      </h3>
+      <label htmlFor="username" className="flex justify-between h-8 leading-8">
         Username:
         <input
           type="text"
@@ -58,10 +59,10 @@ export const Login = () => {
             }))
           }
           value={credentials.username}
-          className="outline"
+          className="placeholder:italic placeholder:text-slate-400 w-64 border border-solid border-current text-current bg-transparent"
         />
       </label>
-      <label htmlFor="password" className="label">
+      <label htmlFor="password" className="flex justify-between h-8 leading-8">
         Password:
         <input
           type="password"
@@ -73,16 +74,21 @@ export const Login = () => {
             }))
           }
           value={credentials.password}
-          className="outline"
+          className="placeholder:italic placeholder:text-slate-400 border border-solid border-current text-current bg-transparent"
         />
       </label>
-      <button onClick={loginHandler} className="login-btn btn filled">
+      <button
+        onClick={loginHandler}
+        className="login-btn rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
+      >
         Login
       </button>
       <div>
         <span>Don't have an account: </span>
         <Link to={"/register"}>
-          <button className="btn link-to-btn">Register</button>
+          <button className="rounded-md font-bold p-2 outline-none border-none cursor-pointer underline">
+            Register
+          </button>
         </Link>
       </div>
     </form>

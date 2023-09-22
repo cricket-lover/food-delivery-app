@@ -8,7 +8,6 @@ import { API_URL, CDN_URL } from "../constants";
 import { TrashIcon } from "../components";
 import { displayRazorpay } from "../utils/razorpay";
 
-import "./cart.css";
 import { enqueueSnackbar } from "notistack";
 import { decreaseQuantity, increaseQuantity } from "../utils/cart";
 
@@ -49,28 +48,31 @@ export const Cart = () => {
   };
 
   if (cartItems.length === 0) {
-    return <div className="cart-page-container">Cart Empty</div>;
+    return <div className="flex flex-col gap-4 items-center">Cart Empty</div>;
   }
 
   return (
-    <div className="cart-page-container">
+    <div className="flex flex-col gap-4 items-center">
       {cartItems.map(({ item, quantity }) => {
         return (
-          <div key={item.id} className="cart-item">
+          <div
+            key={item.id}
+            className="flex items-center gap-4 shadow-md rounded-lg w-full p-4 justify-between"
+          >
             <img
               src={CDN_URL + item.cloudinaryImageId}
               alt={item.name}
-              className="cart-image"
+              className=" w-20 rounded-full aspect-square"
             />
-            <span className="cart-item-name">
+            <span className="text-center w-40">
               {item.name}
               <StarRating value={item.avgRating} />
             </span>
-            <span className="cost">
-              <span className="currency-symbol">₹</span>
+            <span className="text-3xl font-bold">
+              <span className="text-base">₹</span>
               {item.costForTwo / 100}
             </span>
-            <div className="buttons-container btn filled">
+            <div className="flex items-center justify-center gap-4 rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light">
               <span
                 onClick={() =>
                   decreaseQuantity(cartDispatch, { item, quantity })
@@ -91,13 +93,16 @@ export const Cart = () => {
           </div>
         );
       })}
-      <button className="btn filled" onClick={handleClearCart}>
+      <button
+        className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
+        onClick={handleClearCart}
+      >
         Clear Cart
       </button>
-      <div className="cart-item">
+      <div className="flex items-center gap-4 shadow-md rounded-md w-full p-4 justify-between">
         <p>Order above items now!</p>
         <button
-          className="btn filled"
+          className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
           onClick={() => displayRazorpay({ amount }, paymentHandler)}
         >
           Pay ₹{amount / 100}

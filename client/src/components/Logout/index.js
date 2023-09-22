@@ -20,7 +20,10 @@ export const Logout = () => {
     }
   };
   return (
-    <button className="btn" onClick={logoutHandler}>
+    <button
+      className="rounded-md font-bold p-2 outline-none border-none cursor-pointer"
+      onClick={logoutHandler}
+    >
       Logout
     </button>
   );

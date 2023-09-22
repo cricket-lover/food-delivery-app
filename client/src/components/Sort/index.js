@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import "./sort.css";
 import { useContext } from "react";
 import { RestaurantsDispatchContext } from "../../RestaurantsContext";
 
@@ -7,10 +6,10 @@ export const Sort = ({ onSortChange }) => {
   const { displayOptionsDispatch } = useContext(RestaurantsDispatchContext);
 
   return (
-    <div className="sort-container">
+    <div>
       <label>Sort By: </label>
       <select
-        className="btn outline"
+        className="rounded-md font-bold p-2 outline-none cursor-pointer border border-solid border-current text-current bg-transparent"
         onChange={(e) =>
           displayOptionsDispatch({ type: "sort", sortOption: e.target.value })
         }
