@@ -15,7 +15,7 @@ export const InputBox = () => {
 
   const debounced = debounce(onQueryChange, 200, {});
   return (
-    <div className="flex gap-4 items-center border-solid border-current border rounded-lg px-2 h-8 shadow-md mr-auto">
+    <div className="order-last w-full flex gap-4 items-center border-solid border-current border rounded-lg px-2 h-8 shadow-md mr-auto sm:order-none sm:max-w-lg">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
@@ -27,7 +27,7 @@ export const InputBox = () => {
         onChange={(e) => {
           debounced(e.target.value);
         }}
-        className="placeholder:italic placeholder:text-slate-400 outline-none border-none text-base w-5/6 md:w-96"
+        className="placeholder:italic placeholder:text-slate-400 outline-none border-none text-base"
         placeholder="Search for restaurants..."
       />
     </div>
