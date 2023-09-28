@@ -60,7 +60,7 @@ export const Card = ({ data }) => {
     <div
       ref={ref}
       className={
-        "flex w-72 justify-around flex-col gap-2 shadow-lg bg-slate-200 p-4 rounded-lg " +
+        "flex w-72 justify-around flex-col gap-2 shadow-lg bg-white p-4 rounded-lg " +
         (!isVisible && " opacity-0")
       }
     >
@@ -79,14 +79,14 @@ export const Card = ({ data }) => {
       {cartItem ? (
         <div className="flex justify-center items-center gap-4">
           <span
-            className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
+            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={() => decreaseQuantity(cartDispatch, cartItem)}
           >
             -
           </span>
           <strong>{cartItem.quantity}</strong>
           <span
-            className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
+            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={() => increaseQuantity(cartDispatch, cartItem)}
           >
             +
@@ -94,7 +94,7 @@ export const Card = ({ data }) => {
         </div>
       ) : (
         <button
-          className={`rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light`}
+          className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           onClick={addToCart}
         >
           Add to cart

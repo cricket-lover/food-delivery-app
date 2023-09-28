@@ -5,7 +5,6 @@ import {
 } from "../RestaurantsContext";
 import { StarRating } from "../components/StarRating";
 import { API_URL, CDN_URL } from "../constants";
-import { TrashIcon } from "../components";
 import { displayRazorpay } from "../utils/razorpay";
 
 import { enqueueSnackbar } from "notistack";
@@ -72,7 +71,7 @@ export const Cart = () => {
               <span className="text-base">₹</span>
               {item.costForTwo / 100}
             </span>
-            <div className="flex items-center justify-center gap-4 rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light">
+            <div className="flex items-center justify-center gap-4 rounded-md outline-none border-none cursor-pointer bg-indigo-600 px-3.5 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               <span
                 onClick={() =>
                   decreaseQuantity(cartDispatch, { item, quantity })
@@ -89,12 +88,11 @@ export const Cart = () => {
                 +
               </span>
             </div>
-            <TrashIcon />
           </div>
         );
       })}
       <button
-        className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
+        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         onClick={handleClearCart}
       >
         Clear Cart
@@ -102,7 +100,7 @@ export const Cart = () => {
       <div className="flex items-center gap-4 shadow-md rounded-md w-full p-4 justify-between">
         <p>Order above items now!</p>
         <button
-          className="rounded-md font-bold p-2 outline-none border-none cursor-pointer bg-primary-color text-primary-color-light"
+          className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           onClick={() => displayRazorpay({ amount }, paymentHandler)}
         >
           Pay ₹{amount / 100}

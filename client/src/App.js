@@ -50,10 +50,12 @@ function App() {
         }}
       >
         <SnackbarProvider>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 min-h-full">
             <Header />
-            <main className="flex flex-col gap-4 items-center">
-              <Outlet />
+            <main>
+              <div className="flex flex-col gap-4 items-center mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+                <Outlet />
+              </div>
             </main>
           </div>
         </SnackbarProvider>
