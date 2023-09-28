@@ -19,7 +19,7 @@ export const Header = () => {
   }, [location]);
   return (
     <Disclosure as={"nav"}>
-      <div className="relative flex flex-wrap sm:flex-nowrap h-16 items-center justify-between bg-gray-800 mx-auto max-w-full px-4 sm:px-6 lg:px-8">
+      <div className="relative flex flex-wrap sm:flex-nowrap h-fit pb-4 sm:pb-0 sm:h-16 s items-center justify-between bg-gray-800 mx-auto max-w-full px-4 sm:px-6 lg:px-8">
         <BrandLogo />
         <InputBox />
         <div className={`flex items-center`}>
