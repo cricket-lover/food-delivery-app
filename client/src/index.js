@@ -3,11 +3,14 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import ReactGA from "react-ga4";
 
 import reportWebVitals from "./reportWebVitals";
 import { Cart } from "./routes/cart";
 import ErrorPage from "./components/ErrorPage";
 import { Body, Login, Logout, Register } from "./components";
+
+ReactGA.initialize("G-NT1Y42GT7Z");
 
 const router = createBrowserRouter([
   {
