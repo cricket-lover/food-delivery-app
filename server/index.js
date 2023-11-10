@@ -14,9 +14,11 @@ const {
   loginHandler,
   logoutHandler,
 } = require("./handlers/authHandlers");
+const { connectDB } = require("./database");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
+connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
