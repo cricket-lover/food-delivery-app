@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const Razorpay = require("razorpay");
-const { authenticateToken } = require("./middleware");
+const { authenticateToken } = require("./middleware/auth.js");
 const {
   getAllRestaurants,
   pageNotFoundHandler,
