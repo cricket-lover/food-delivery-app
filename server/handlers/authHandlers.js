@@ -1,30 +1,20 @@
 const bcrypt = require("bcrypt");
-const fs = require("fs");
-const path = require("path");
 
-const { generateAccessToken } = require("../utils/index");
-
-const users = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "../data/users.json"), "utf8")
-);
-const blockedTokens = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "../data/blockedTokens.json"), "utf8")
-);
+const { generateAccessToken } = require("../utils/auth.js");
+const { BlockedTokens, User } = require("../models");
 
 const signupHandler = async (req, res) => {
   const { username, password, email } = req.body;
+  const users = await User.find();
   const user = users.find((user) => user.username === username);
   if (user) {
     return res.status(403).json({ err: "User Already Exists" });
   }
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    users.push({ username, password: hashedPassword });
-    fs.writeFileSync(
-      path.resolve(__dirname, "../data/users.json"),
-      JSON.stringify(users, null, 2),
-      "utf8"
-    );
+    users.push({ username });
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
     return res.status(201).json({ username, email });
   } catch (error) {
     return res.status(500).json(error);
@@ -33,6 +23,7 @@ const signupHandler = async (req, res) => {
 
 const loginHandler = async (req, res) => {
   const { username, password } = req.body;
+  const users = await User.find();
   const user = users.find((user) => user.username === username);
   if (!user) {
     return res.status(401).json({ err: "Username Not Found" });
@@ -51,13 +42,10 @@ const loginHandler = async (req, res) => {
   }
 };
 
-const logoutHandler = (req, res) => {
+const logoutHandler = async (req, res) => {
   const authHeader = req.headers["authorization"];
   const accessToken = authHeader && authHeader.split(" ")[1];
-  fs.writeFileSync(
-    path.resolve(__dirname, "../data/blockedTokens.json"),
-    JSON.stringify([...blockedTokens, accessToken])
-  );
+  await BlockedTokens.insertMany({ tokens: [accessToken] });
   res.status(204).json({ msg: "You're now logged out." });
 };
 
