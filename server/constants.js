@@ -1,3 +1,4 @@
+const APP_NAME = "Yummy Tummy";
 const DB_NAME = "food-delivery-app";
 
-module.exports = { DB_NAME };
+module.exports = { APP_NAME, DB_NAME };

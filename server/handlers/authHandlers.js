@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 
 const { generateAccessToken } = require("../utils/auth.js");
 const { BlockedTokens, User } = require("../models");
+const { sendSignupEmail } = require("../services/email-notifications.js");
+const { isEmailValid } = require("../../client/src/utils/validate-email.js");
 
 const signupHandler = async (req, res) => {
   const { username, password, email } = req.body;
@@ -10,11 +12,15 @@ const signupHandler = async (req, res) => {
   if (user) {
     return res.status(403).json({ err: "User Already Exists" });
   }
+  if (!isEmailValid(email)) {
+    return res.status(403).json({ err: "Invalid Email Id" });
+  }
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     users.push({ username });
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
+    await sendSignupEmail({ username, email });
     return res.status(201).json({ username, email });
   } catch (error) {
     return res.status(500).json(error);

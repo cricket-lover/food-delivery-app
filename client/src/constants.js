@@ -7,3 +7,5 @@ export const API_URL =
     : "https://food-delivery-app-api-o9cv.onrender.com";
 export const RAZORPAY_SCRIPT_URL =
   "https://checkout.razorpay.com/v1/checkout.js";
+
+export const APP_NAME = "Yummy Tummy";

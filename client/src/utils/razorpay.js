@@ -1,5 +1,5 @@
 import { enqueueSnackbar } from "notistack";
-import { API_URL, RAZORPAY_SCRIPT_URL } from "../constants";
+import { APP_NAME, API_URL, RAZORPAY_SCRIPT_URL } from "../constants";
 
 export const loadScript = (src) => {
   return new Promise((resolve) => {
@@ -46,7 +46,7 @@ export const displayRazorpay = async (orderDetails, paymentHandler) => {
     key: "rzp_test_3O7kpMd8UDq8yp", // Enter the Key ID generated from the Dashboard
     amount: amount.toString(),
     currency: currency,
-    name: "Yummy Tummy",
+    name: APP_NAME,
     description: "Test Transaction",
     order_id: order_id,
     handler: async function (response) {
