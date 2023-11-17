@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const { DB_NAME } = require("../constants");
+const { User, BlockedTokens } = require("../models");
 
 const connectDB = async function () {
   try {
@@ -16,4 +17,35 @@ const connectDB = async function () {
   }
 };
 
-module.exports = { connectDB };
+const getCurrentUser = async (username) => {
+  const users = await User.find();
+  const user = users.find((user) => user.username === username);
+
+  return user;
+};
+
+const doesUserExist = async (username) => {
+  const users = await User.find();
+  const userIndex = users.findIndex((user) => user.username === username);
+
+  return userIndex >= 0;
+};
+
+const addNewUser = async (username, email, password) => {
+  const users = await User.find();
+  users.push({ username });
+  const newUser = new User({ username, email, password });
+  await newUser.save();
+};
+
+const blockAccessToken = async (accessToken) => {
+  return await BlockedTokens.insertMany({ tokens: [accessToken] });
+};
+
+module.exports = {
+  connectDB,
+  getCurrentUser,
+  addNewUser,
+  doesUserExist,
+  blockAccessToken,
+};

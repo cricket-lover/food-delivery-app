@@ -1,25 +1,21 @@
-const bcrypt = require("bcrypt");
-
-const { generateAccessToken } = require("../utils/auth.js");
-const { BlockedTokens, User } = require("../models");
+const {
+  generateAccessToken,
+  hashPassword,
+  isPasswordValid,
+} = require("../utils/auth.js");
 const { sendSignupEmail } = require("../services/email-notifications.js");
-const { isEmailValid } = require("../../client/src/utils/validate-email.js");
+const {
+  addNewUser,
+  doesUserExist,
+  getCurrentUser,
+} = require("../database/index.js");
 
-const signupHandler = async (req, res) => {
+const handleRegister = async (req, res) => {
   const { username, password, email } = req.body;
-  const users = await User.find();
-  const user = users.find((user) => user.username === username);
-  if (user) {
-    return res.status(403).json({ err: "User Already Exists" });
-  }
-  if (!isEmailValid(email)) {
-    return res.status(403).json({ err: "Invalid Email Id" });
-  }
+
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    users.push({ username });
-    const newUser = new User({ username, email, password: hashedPassword });
-    await newUser.save();
+    const hashedPassword = await hashPassword(password);
+    await addNewUser(username, email, hashedPassword);
     await sendSignupEmail({ username, email });
     return res.status(201).json({ username, email });
   } catch (error) {
@@ -27,18 +23,15 @@ const signupHandler = async (req, res) => {
   }
 };
 
-const loginHandler = async (req, res) => {
+const handleLogin = async (req, res) => {
   const { username, password } = req.body;
-  const users = await User.find();
-  const user = users.find((user) => user.username === username);
-  if (!user) {
+  if (!(await doesUserExist(username))) {
     return res.status(401).json({ err: "Username Not Found" });
   }
 
   try {
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (isPasswordValid) {
+    const user = await getCurrentUser(username);
+    if (await isPasswordValid(password, user.password)) {
       const accessToken = generateAccessToken(user);
       return res.status(200).json({ accessToken });
     }
@@ -48,11 +41,11 @@ const loginHandler = async (req, res) => {
   }
 };
 
-const logoutHandler = async (req, res) => {
+const handleLogout = async (req, res) => {
   const authHeader = req.headers["authorization"];
   const accessToken = authHeader && authHeader.split(" ")[1];
-  await BlockedTokens.insertMany({ tokens: [accessToken] });
+  await blockAccessToken(accessToken);
   res.status(204).json({ msg: "You're now logged out." });
 };
 
-module.exports = { signupHandler, loginHandler, logoutHandler };
+module.exports = { handleRegister, handleLogin, handleLogout };

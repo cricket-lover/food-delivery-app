@@ -1,6 +1,8 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { BlockedTokens } = require("../models");
+const { doesUserExist } = require("../database");
+const { isEmailValid } = require("../utils/validate-email");
 
 const authenticateToken = async (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -20,4 +22,17 @@ const authenticateToken = async (req, res, next) => {
   });
 };
 
-module.exports = { authenticateToken };
+const validateUserDetails = async (req, res, next) => {
+  const { username, email } = req.body;
+
+  if (await doesUserExist(username)) {
+    return res.status(403).json({ err: "User Already Exists" });
+  }
+  if (!isEmailValid(email)) {
+    return res.status(403).json({ err: "Invalid Email Id" });
+  }
+
+  next();
+};
+
+module.exports = { authenticateToken, validateUserDetails };
