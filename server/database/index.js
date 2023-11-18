@@ -42,10 +42,15 @@ const blockAccessToken = async (accessToken) => {
   return await BlockedTokens.insertMany({ tokens: [accessToken] });
 };
 
+const getBlockedTokens = async () => {
+  return (await BlockedTokens.find()).map((e) => e.tokens[0]);
+};
+
 module.exports = {
   connectDB,
   getCurrentUser,
   addNewUser,
   doesUserExist,
   blockAccessToken,
+  getBlockedTokens,
 };

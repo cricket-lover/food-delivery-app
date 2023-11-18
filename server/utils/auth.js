@@ -14,4 +14,16 @@ const generateAccessToken = ({ username, password }) => {
   return jwt.sign({ username, password }, process.env.ACCESS_TOKEN_SECRET);
 };
 
-module.exports = { generateAccessToken, hashPassword, isPasswordValid };
+const getAccessTokenFromHeaders = (headers) => {
+  const authHeader = headers["authorization"];
+  const accessToken = authHeader && authHeader.split(" ")[1];
+
+  return accessToken;
+};
+
+module.exports = {
+  generateAccessToken,
+  hashPassword,
+  isPasswordValid,
+  getAccessTokenFromHeaders,
+};

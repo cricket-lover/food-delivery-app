@@ -8,6 +8,7 @@ const {
   addNewUser,
   doesUserExist,
   getCurrentUser,
+  blockAccessToken,
 } = require("../database/index.js");
 
 const handleRegister = async (req, res) => {

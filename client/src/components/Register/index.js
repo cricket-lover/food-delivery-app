@@ -3,6 +3,7 @@ import { RestaurantsContext } from "../../RestaurantsContext";
 import { Link, useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import { API_URL } from "../../constants";
+import { isEmailValid } from "../../utils/validate-email";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -22,7 +23,10 @@ export const Register = () => {
     e.preventDefault();
     const { username, password, email } = credentials;
 
-    if (username === "" || password === "" || email === "") {
+    if (username === "" || password === "" || !isEmailValid(email)) {
+      enqueueSnackbar("Please provide valid user details", {
+        variant: "info",
+      });
       return;
     }
     try {
