@@ -26,11 +26,11 @@ const handleRegister = async (req, res) => {
 
 const handleLogin = async (req, res) => {
   const { username, password } = req.body;
-  if (!(await doesUserExist(username))) {
-    return res.status(401).json({ err: "Username Not Found" });
-  }
 
   try {
+    if (!(await doesUserExist(username))) {
+      return res.status(401).json({ err: "Username Not Found" });
+    }
     const user = await getCurrentUser(username);
     if (await isPasswordValid(password, user.password)) {
       const accessToken = generateAccessToken(user);
@@ -45,8 +45,12 @@ const handleLogin = async (req, res) => {
 const handleLogout = async (req, res) => {
   const authHeader = req.headers["authorization"];
   const accessToken = authHeader && authHeader.split(" ")[1];
-  await blockAccessToken(accessToken);
-  res.status(204).json({ msg: "You're now logged out." });
+  try {
+    await blockAccessToken(accessToken);
+    res.status(204).json({ msg: "You're now logged out." });
+  } catch (error) {
+    res.status(500).json({ msg: "There is a error while logging out" });
+  }
 };
 
 module.exports = { handleRegister, handleLogin, handleLogout };
