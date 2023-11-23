@@ -1,7 +1,7 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { doesUserExist, getBlockedTokens } = require("../database");
-const { isEmailValid } = require("../utils/validate-email");
+const { isEmailValid } = require("../utils/email");
 const { getAccessTokenFromHeaders } = require("../utils/auth");
 
 const authenticateToken = async (req, res, next) => {

@@ -15,14 +15,12 @@ const {
   handleLogin,
   handleLogout,
 } = require("./handlers/authHandlers");
-const { connectDB } = require("./database");
 const {
   handleOrders,
   handlePaymentSuccess,
 } = require("./handlers/paymentHandlers.js");
 
 const app = express();
-connectDB();
 
 app.use(express.json());
 app.use(cookieParser());

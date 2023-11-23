@@ -6,8 +6,8 @@ const sendSignupEmail = ({ username, email }) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
-    to: email, // Change to your recipient
-    from: "phaneendra.explore@gmail.com", // Change to your verified sender
+    to: email,
+    from: "phaneendra.explore@gmail.com",
     subject: `Welcome to ${APP_NAME} - Your Food Journey Begins!`,
     text: "and easy to do anywhere, even with Node.js",
     html: `<p>
