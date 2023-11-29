@@ -1,6 +1,7 @@
 # server 
 /server/node_modules
 /server/.env
+/server/coverage
 
 # client 
 /client/node_modules

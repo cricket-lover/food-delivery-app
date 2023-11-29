@@ -32,8 +32,9 @@ const doesUserExist = async (username) => {
 };
 
 const addNewUser = async (username, email, password) => {
-  const users = await User.find();
-  users.push({ username });
+  if (await doesUserExist(username)) {
+    return;
+  }
   const newUser = new User({ username, email, password });
   await newUser.save();
 };

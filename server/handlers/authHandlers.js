@@ -2,6 +2,7 @@ const {
   generateAccessToken,
   hashPassword,
   isPasswordValid,
+  getAccessTokenFromHeaders,
 } = require("../utils/auth.js");
 const { sendSignupEmail } = require("../services/email-notifications.js");
 const {
@@ -43,8 +44,7 @@ const handleLogin = async (req, res) => {
 };
 
 const handleLogout = async (req, res) => {
-  const authHeader = req.headers["authorization"];
-  const accessToken = authHeader && authHeader.split(" ")[1];
+  const accessToken = getAccessTokenFromHeaders(req.headers);
   try {
     await blockAccessToken(accessToken);
     res.status(204).json({ msg: "You're now logged out." });
